@@ -24,17 +24,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" >
-        </activity>
-        <activity
-            android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile"
+            android:name=".CalendarActivity"
+            android:label="@string/title_activity_calendar"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".CalendarActivity"
-            android:label="@string/title_activity_calendar"
+            android:name=".ResultActivity"
+            android:label="@string/title_activity_result"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".InsertActivity"
+            android:label="@string/title_activity_insert"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".TestDatabaseActivity"
+            android:label="@string/title_activity_test_database"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".HistoryActivity"
+            android:label="@string/title_activity_history"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>

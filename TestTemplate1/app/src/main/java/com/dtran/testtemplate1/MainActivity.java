@@ -53,14 +53,14 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
+*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -86,13 +86,15 @@ public class MainActivity extends AppCompatActivity
         final Context context = this;
 
         if (id == R.id.nav_calendar) {
-            // Handle the camera
             Intent intent = new Intent(context, CalendarActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_profile) {
 
-        } else if (id == R.id.nav_result) {
+        } else if (id == R.id.nav_history) {
+            //Intent intent = new Intent(context, ResultActivity.class);
+            Intent intent = new Intent(context, HistoryActivity.class);
 
+            startActivity(intent);
         } else if (id == R.id.nav_sync) {
 
         }

@@ -19,6 +19,100 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_profile">ProfileActivity</string>
-    <string name="title_activity_calendar">CalendarActivity</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_calendar">Calendar</string>
+    <string name="title_activity_result">Result</string>
+    <string name="title_activity_insert">Insert</string>
+    <string name="title_activity_test_database">TestDatabaseActivity</string>
+    <string name="title_activity_history">History</string>
+
+    <string-array name="body_part_arrays">
+        <item>Chest</item>
+        <item>Back</item>
+        <item>Legs</item>
+        <item>Abs</item>
+        <item>Arms</item>
+    </string-array>
+
+    <string-array name="chest_arrays">
+        <item>Barbell Flat Bench</item>
+        <item>Barbell Incline Bench</item>
+        <item>Barbell Decline Bench</item>
+        <item>Dumbbell Flat Bench</item>
+        <item>Dumbbell Incline Bench</item>
+        <item>>Crossover/ButterFly</item>
+        <item>Push-Up</item>
+        <item>Dips</item>
+    </string-array>
+
+    <string-array name="back_arrays">
+        <item>Barbell Deadlift</item>
+        <item>Bent Over Barbell Row</item>
+        <item>Seated Cable Rows</item>
+        <item>Machine Rows</item>
+        <item>Dumbell Pullover</item>
+        <item>Pull-Up</item>
+        <item>Lat Pulldown</item>
+    </string-array>
+
+
+    <string-array name="lift_arrays">
+        <item>Barbell Flat Bench</item>
+        <item>Barbell Incline Bench</item>
+        <item>Barbell Decline Bench</item>
+        <item>Barbell Squat</item>
+        <item>Hack Squat</item>
+        <item>Leg Press</item>
+        <item>Ab curl</item>
+        <item>Deadlift</item>
+        <item>Pull-up</item>
+        <item>Lat Pulldown</item>
+    </string-array>
+
+    <string-array name="legs_arrays">
+        <item>Barbell Back Squat</item>
+        <item>Barbell Front Squat</item>
+        <item>Hack Squat</item>
+        <item>Pistol Squat</item>
+        <item>Calf Raise</item>
+        <item>Box Jump</item>
+        <item>Leg Press</item>
+        <item>Leg Curl/Extensions</item>
+    </string-array>
+    <string-array name="arms_arrays">
+        <item>Hammer Curl</item>
+        <item>Barbell Curl</item>
+        <item>Dumbbell Curl</item>
+        <item>Triceps Extension</item>
+        <item>Wrist Curl</item>
+    </string-array>
+    <string-array name="abs_arrays">
+        <item>Sit-Up</item>
+        <item>Ab Crunch Machine</item>
+        <item>Ab Roller</item>
+        <item>Crunches</item>
+    </string-array>
+    <string-array name="reps_arrays">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+    </string-array>
+
 </resources>

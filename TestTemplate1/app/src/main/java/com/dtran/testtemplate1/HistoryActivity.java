@@ -1,5 +1,6 @@
 package com.dtran.testtemplate1;
 
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,19 +15,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 
-import android.widget.CalendarView;
-import android.widget.CalendarView.OnDateChangeListener;
+import java.util.List;
+import java.util.Random;
 
-public class CalendarActivity extends AppCompatActivity
+public class HistoryActivity extends ListActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private CommentsDataSource datasource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_history);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -37,26 +41,27 @@ public class CalendarActivity extends AppCompatActivity
             }
         });
 */
+        /*
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
+*/
+        /*
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+*/
+        datasource = new CommentsDataSource(this);
+        datasource.open();
 
-        final Context context = this;
-        CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
-        calendarView.setOnDateChangeListener(new OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                //Toast.makeText(getApplicationContext(), dayOfMonth, 0).show();
+        List<Comment> values = datasource.getAllComments();
 
-                Intent intent = new Intent(context, InsertActivity.class);
-                startActivity(intent);
-            }
-        });
+        // use the SimpleCursorAdapter to show the
+        // elements in a ListView
+        ArrayAdapter<Comment> adapter = new ArrayAdapter<Comment>(this,
+                android.R.layout.simple_list_item_1, values);
+        setListAdapter(adapter);
     }
 
     @Override
@@ -72,10 +77,11 @@ public class CalendarActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.calendar, menu);
+        getMenuInflater().inflate(R.menu.history, menu);
         return true;
     }
 */
+   /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -90,6 +96,7 @@ public class CalendarActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -105,8 +112,8 @@ public class CalendarActivity extends AppCompatActivity
             Intent intent = new Intent(context, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_history) {
-            Intent intent = new Intent(context, ResultActivity.class);
-            //Intent intent = new Intent(context, HistoryActivity.class);
+            //Intent intent = new Intent(context, ResultActivity.class);
+            Intent intent = new Intent(context, HistoryActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_sync) {
 
@@ -116,4 +123,39 @@ public class CalendarActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void onClick(View view) {
+        @SuppressWarnings("unchecked")
+        ArrayAdapter<Comment> adapter = (ArrayAdapter<Comment>) getListAdapter();
+        Comment comment = null;
+        switch (view.getId()) {
+            case R.id.add:
+                String[] comments = new String[] { "Cool", "Very nice", "Hate it" };
+                int nextInt = new Random().nextInt(3);
+                // save the new comment to the database
+                comment = datasource.createComment(comments[nextInt]);
+                adapter.add(comment);
+                break;
+            case R.id.delete:
+                if (getListAdapter().getCount() > 0) {
+                    comment = (Comment) getListAdapter().getItem(0);
+                    datasource.deleteComment(comment);
+                    adapter.remove(comment);
+                }
+                break;
+        }
+        adapter.notifyDataSetChanged();
+    }
+    @Override
+    protected void onResume() {
+        datasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        datasource.close();
+        super.onPause();
+    }
+
 }

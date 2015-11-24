@@ -14,17 +14,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
-import android.widget.CalendarView;
-import android.widget.CalendarView.OnDateChangeListener;
+public class InsertActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-public class CalendarActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+    private Spinner bodyPartSpinner;
+    private CommentsDataSource datasource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar);
+        setContentView(R.layout.activity_insert);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 /*
@@ -45,18 +49,25 @@ public class CalendarActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+/*
+        bodyPartSpinner = (Spinner)findViewById(R.id.spinnerBodyPart);
+        int selectionCurrent = bodyPartSpinner.getSelectedItemPosition();
 
-        final Context context = this;
-        CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
-        calendarView.setOnDateChangeListener(new OnDateChangeListener() {
+        bodyPartSpinner.setOnItemSelectedListener(new MyCustomOnItemSelectedListener());
+        */
+/*
+        bodyPartSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                //Toast.makeText(getApplicationContext(), dayOfMonth, 0).show();
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                String  mselection = bodyPartSpinner.getSelectedItem().toString();
+                //Toast.makeText(getApplicationContext(), "selected "+ mselection, toast).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
 
-                Intent intent = new Intent(context, InsertActivity.class);
-                startActivity(intent);
             }
         });
+        */
     }
 
     @Override
@@ -72,7 +83,7 @@ public class CalendarActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.calendar, menu);
+        getMenuInflater().inflate(R.menu.insert, menu);
         return true;
     }
 */
@@ -105,15 +116,41 @@ public class CalendarActivity extends AppCompatActivity
             Intent intent = new Intent(context, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_history) {
-            Intent intent = new Intent(context, ResultActivity.class);
-            //Intent intent = new Intent(context, HistoryActivity.class);
+            //Intent intent = new Intent(context, ResultActivity.class);
+            Intent intent = new Intent(context, HistoryActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_sync) {
 
+        } else if (id == R.id.nav_test) {
+            Intent intent = new Intent(context, TestDatabaseActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void insertLift(View v)
+    {
+        Toast.makeText(this, "Insert?", Toast.LENGTH_SHORT).show();
+       // @SuppressWarnings("unchecked")
+       // ArrayAdapter<Comment> adapter = (ArrayAdapter<Comment>) getListAdapter();
+        Comment comment = null;
+
+        //String[] comments = new String[] { "Cool", "Very nice", "Hate it" };
+        //int nextInt = new Random().nextInt(3);
+        // save the new comment to the database
+        comment = datasource.createComment("test1");
+       // adapter.add(comment);
+       // adapter.notifyDataSetChanged();
+    }
+    public void insertCancel(View v)
+    {
+        Toast.makeText(this, "Cancel?", Toast.LENGTH_SHORT).show();
+       // final int id = v.getId();
+
+        Intent intent = new Intent(this, CalendarActivity.class);
+        startActivity(intent);
     }
 }

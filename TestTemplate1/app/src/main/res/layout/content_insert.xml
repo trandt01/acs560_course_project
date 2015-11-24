@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/app_bar_insert" tools:context="com.dtran.testtemplate1.InsertActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:text="Weight"
+            android:layout_marginTop="38dp"
+            android:layout_below="@+id/spinnerLift"
+            android:layout_centerHorizontal="true" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerReps"
+            android:entries="@array/reps_arrays"
+            android:layout_below="@+id/textView"
+            android:layout_alignLeft="@+id/button2"
+            android:layout_alignStart="@+id/button2"
+            android:layout_toLeftOf="@+id/button3"
+            android:layout_toStartOf="@+id/button3" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:id="@+id/button2"
+            android:onClick="insertLift"
+            android:layout_marginTop="90dp"
+            android:layout_below="@+id/spinnerReps"
+            android:layout_toLeftOf="@+id/textView"
+            android:layout_toStartOf="@+id/textView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Lift"
+            android:id="@+id/textView6"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerLift"
+            android:entries="@array/lift_arrays"
+            android:layout_below="@+id/textView6"
+            android:layout_alignRight="@+id/editText"
+            android:layout_alignEnd="@+id/editText"
+            android:layout_alignLeft="@+id/editText"
+            android:layout_alignStart="@+id/editText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Reps"
+            android:id="@+id/textView"
+            android:layout_below="@+id/editText"
+            android:layout_alignRight="@+id/textView6"
+            android:layout_alignEnd="@+id/textView6"
+            android:layout_marginTop="39dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/button3"
+            android:onClick="insertCancel"
+            android:layout_alignTop="@+id/button2"
+            android:layout_alignRight="@+id/editText"
+            android:layout_alignEnd="@+id/editText" />
+
+        <!--
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Body Part"
+                    android:id="@+id/textView7"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinnerBodyPart"
+                    android:layout_below="@+id/textView7"
+                    android:layout_centerHorizontal="true"
+                    android:entries="@array/body_part_arrays"
+                    />
+                    -->
+
+    </RelativeLayout>
+</RelativeLayout>
