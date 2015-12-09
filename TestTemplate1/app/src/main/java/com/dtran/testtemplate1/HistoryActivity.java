@@ -1,11 +1,9 @@
 package com.dtran.testtemplate1;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,55 +11,87 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-
+import android.widget.ListView;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class HistoryActivity extends ListActivity
+public class HistoryActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private CommentsDataSource datasource;
+    private LiftDataSource datasource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-/*
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Bundle extras = getIntent().getExtras();
+                if (extras != null) {
+                    try {
+                        long selectedDate = extras.getLong("selectedDate");
+                        Intent intent = new Intent(HistoryActivity.this, InsertActivity.class);
+                        intent.putExtra("selectedDate", selectedDate);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                    }
+                }
             }
         });
-*/
-        /*
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-*/
-        /*
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-*/
-        datasource = new CommentsDataSource(this);
-        datasource.open();
 
-        List<Comment> values = datasource.getAllComments();
+        try
+        {
+            Bundle extras = getIntent().getExtras();
+            if(extras != null)
+            {
+                long selectedDate = extras.getLong("selectedDate");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                //Date date = sdf.parse(selectedDate);
+                //long longCurrentDate = date.getTime();
 
-        // use the SimpleCursorAdapter to show the
-        // elements in a ListView
-        ArrayAdapter<Comment> adapter = new ArrayAdapter<Comment>(this,
-                android.R.layout.simple_list_item_1, values);
-        setListAdapter(adapter);
+                datasource = new LiftDataSource(HistoryActivity.this);
+                datasource.open();
+                //List<Lift> values = datasource.getAllLifts();
+
+                List<Lift> mylist = datasource.getLifts(selectedDate);
+                if(mylist != null)
+                {
+                    List<HistoryRowItem> historyRowList = new ArrayList<HistoryRowItem>();
+
+                    for(Lift myLift : mylist) {
+                        String title = myLift.getBodyPart() + ": " + myLift.getLift();
+                        String desc = myLift.getWeight() + " lbs X " + myLift.getReps() + " reps";
+                        HistoryRowItem newitem = new HistoryRowItem(myLift.getId(),title, desc, selectedDate);
+                        historyRowList.add(newitem);
+                    }
+
+                    ListView listView = (ListView) findViewById(R.id.listview);
+                    CustomListViewAdapter customAdapter = new CustomListViewAdapter(this, R.layout.listview_history_item_row, historyRowList);
+                    listView.setAdapter(customAdapter);
+                }
+            }
+        }
+        catch(Exception e){}
+        finally {
+            datasource.close();
+        }
     }
 
     @Override
@@ -101,61 +131,19 @@ public class HistoryActivity extends ListActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         final Context context = this;
 
-        if (id == R.id.nav_calendar) {
-            Intent intent = new Intent(context, CalendarActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_profile) {
+        if (id == R.id.nav_profile) {
             Intent intent = new Intent(context, MainActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_history) {
-            //Intent intent = new Intent(context, ResultActivity.class);
-            Intent intent = new Intent(context, HistoryActivity.class);
+        } else if (id == R.id.nav_calendar) {
+            Intent intent = new Intent(context, CalendarActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_sync) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    public void onClick(View view) {
-        @SuppressWarnings("unchecked")
-        ArrayAdapter<Comment> adapter = (ArrayAdapter<Comment>) getListAdapter();
-        Comment comment = null;
-        switch (view.getId()) {
-            case R.id.add:
-                String[] comments = new String[] { "Cool", "Very nice", "Hate it" };
-                int nextInt = new Random().nextInt(3);
-                // save the new comment to the database
-                comment = datasource.createComment(comments[nextInt]);
-                adapter.add(comment);
-                break;
-            case R.id.delete:
-                if (getListAdapter().getCount() > 0) {
-                    comment = (Comment) getListAdapter().getItem(0);
-                    datasource.deleteComment(comment);
-                    adapter.remove(comment);
-                }
-                break;
-        }
-        adapter.notifyDataSetChanged();
-    }
-    @Override
-    protected void onResume() {
-        datasource.open();
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        datasource.close();
-        super.onPause();
-    }
-
 }
