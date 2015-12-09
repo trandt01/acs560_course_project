@@ -18,5 +18,5 @@
 ##file explain
 
 `main.go` `method.go` and `structure.go` are the server file.<br>
-`index.html` can be created by your own, check the `github.com/labstack/echo' for more information of web framework.<br>
+`index.html` can be created by your own, check the `github.com/labstack/echo` for more information of web framework.<br>
 Other files are maded for previous design of server.
