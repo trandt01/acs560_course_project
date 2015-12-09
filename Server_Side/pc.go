@@ -12,7 +12,6 @@ const (
 	ConstMLength      = 4
 )
 
-//封包
 func Enpack(message []byte) []byte {
 	return append(append([]byte(ConstHeader), IntToBytes(len(message))...), message...)
 }
