@@ -16,9 +16,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_calendar">Calendar</string>
     <string name="title_activity_result">Result</string>
@@ -40,7 +38,7 @@
         <item>Barbell Decline Bench</item>
         <item>Dumbbell Flat Bench</item>
         <item>Dumbbell Incline Bench</item>
-        <item>>Crossover/ButterFly</item>
+        <item>Crossover/ButterFly</item>
         <item>Push-Up</item>
         <item>Dips</item>
     </string-array>
