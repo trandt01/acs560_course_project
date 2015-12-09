@@ -10,7 +10,7 @@ import (
 
 func main() {
 
-	netListen, err := net.Listen("tcp", "localhost:7080")
+	netListen, err := net.Listen("tcp", "localhost:port")
 	CheckError(err)
 	defer netListen.Close()
 
