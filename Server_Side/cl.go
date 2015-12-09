@@ -6,7 +6,6 @@ import (
 	"net"
 	"os"
 )
-
 func sender(conn net.Conn) {
 	words := "hello world!"
 	conn.Write([]byte(words))
