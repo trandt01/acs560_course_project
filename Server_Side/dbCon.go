@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	db, err := sql.Open("mysql", "root:dd056024@(localhost:3306)/workout")
+	db, err := sql.Open("mysql", "user:password@(localhost:port)/dbname")
 	checkErr(err)
 	fmt.Println("Connection success!")
 
