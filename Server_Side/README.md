@@ -13,3 +13,8 @@ running
 ------------------------------------
 * ./xxxx(your server name) -user="(mysql username)" -pwd="(mysql password") -port="(port you like or 8080 as default)"
 * or ./xxxx -help 
+
+file explain
+------------------------------------
+`main.go` `method.go` and `structure.go` are the server file.<br>
+Other files are maded for previous design of server.
