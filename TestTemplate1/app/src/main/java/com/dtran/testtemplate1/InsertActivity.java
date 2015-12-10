@@ -63,6 +63,8 @@ public class InsertActivity extends AppCompatActivity implements NavigationView.
 
         bodyPartSpinner.setOnItemSelectedListener(new MyCustomOnItemSelectedListener());
 
+        android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+
         extras = getIntent().getExtras();
         if(extras != null)
         {
@@ -123,7 +125,8 @@ public class InsertActivity extends AppCompatActivity implements NavigationView.
                         String liftDateString = DateFormat.format("yyyy-MM-dd", selectedDate).toString();
 
                         String t1 = liftText.replace(" ", "_");
-                        URL url = new URL("http", "40.76.13.137", 8080, "insert/lifthistory/"+android_id+"?id="+lift.getId()+"Lift="+t1+"&&BodyPart="+bodyPart+"&&Weight="+weightText+"&&Reps="+reps+"&&InsertDate="+dateString+"&&LiftDate="+liftDateString+"&&Active=true");
+
+                        URL url = new URL("http", "40.76.13.137", 8080, "insert/lifthistory/"+android_id+"/"+lift.getId()+"?sLift="+t1+"&&BodyPart="+bodyPart+"&&Weight="+weightText+"&&Reps="+reps+"&&InsertDate="+dateString+"&&LiftDate="+liftDateString+"&&Active=true");
 
                         SetLift mySetLift = new SetLift();
                         mySetLift.execute(url);

@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity
                 String android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
                 //test 121.42.201.6
 
-                URL url = new URL("http", "40.76.13.137", 8080, "set/account/"+android_id+"?Weight="+weight+"&&Height="+height+"&&BodyFat="+bodyFat);
+                URL url = new URL("http", "40.76.13.137", 8080, "insert/account/"+android_id+"/"+account.getId()+"?Weight="+weight+"&&Height="+height+"&&BodyFat="+bodyFat);
                 SetAccount setAccount = new SetAccount();
                 setAccount.execute(url);
             }catch(Exception e) {
